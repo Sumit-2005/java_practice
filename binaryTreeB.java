@@ -372,7 +372,7 @@ public class binaryTreeB {
         return data;
     }
 
-    public static void preorderTraversal(Node root) {
+    public static void preorderTraversal(Node root) {    
         if (root == null) {
             // System.out.print(-1 + " ");
             return;
@@ -382,16 +382,56 @@ public class binaryTreeB {
         preorderTraversal(root.right);
     }
 
+    public static int height1(Node root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int lh = height1(root.left);
+        return lh + 1;
+    }
+
+    public static int height2(Node root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int rh = height2(root.right);
+        return rh + 1;
+    }
+
+    public static ArrayList<Integer> collNodes(Node root){
+        ArrayList<Integer> a = new ArrayList<>();
+        nodes(root, a);
+        return a;
+    }
+    
+    public static void nodes(Node root, ArrayList<Integer> a) {    
+        if(root == null) {
+            a.add(-1);
+            return;
+        }
+        a.add(root.data);
+        nodes(root.left, a);
+        nodes(root.right,a);
+    }
+
     public static void main(String args[]) {
         Node root = new Node(1);
         root.left = new Node(2);
         root.right = new Node(3);
         root.left.left = new Node(4);
         root.left.right = new Node(5);
-        root.right.left = new Node(6);
-        root.right.right = new Node(7);
 
-        transform(root);
-        preorderTraversal(root);
+        Node root1 = new Node(1);
+        root1.left = new Node(2);
+        root1.right = new Node(3);
+        root1.left.left = new Node(4);
+        root1.left.right = new Node(5);
+
+        ArrayList<Integer> a = collNodes(root);
+        ArrayList<Integer> b = collNodes(root1);
+        System.out.println(a.equals(b));
+        
     }
 }
