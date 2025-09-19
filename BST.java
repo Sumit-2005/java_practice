@@ -160,17 +160,62 @@ public class BST {
         preOrder(root.left);
         preOrder(root.right);
     }
+
+    public static Node createBST(int arr[], int st, int end){
+        if(st>end){
+            return null;
+        }
+
+        int mid = (st + end)/2;
+        Node root = new Node(arr[mid]);
+        root.left = createBST(arr, st, mid-1);
+        root.right = createBST(arr, mid+1, end);
+        return root;
+    }
+
+    public static void inorderArray(Node root, ArrayList<Integer> inorder){
+        if(root == null){
+            return;
+        }
+
+        inorderArray(root.left, inorder);
+        inorder.add(root.data);
+        inorderArray(root.right, inorder);
+    }
+    
+    public static Node createNewBST(ArrayList<Integer> inorder, int st, int end){
+        if(st>end){
+            return null;
+        }
+
+        int mid = (st+end)/2;
+        Node root = new Node(inorder.get(mid));
+        root.left = createNewBST(inorder, st, mid-1);
+        root.right = createNewBST(inorder, mid+1, end);
+        return root;
+    }
+    
+    public static Node balanceBST(Node root){
+        // Sorted Inorder Sequence
+        ArrayList<Integer> inorder = new ArrayList<>();
+        inorderArray(root, inorder);
+
+        //Balance BST
+        root = createNewBST(inorder, 0, inorder.size()-1);
+        return root;
+    }
     
     public static void main(String args[]){
-        int values[] = {8,5,3,6,10,11};
-        Node root = null;
+        Node root = new Node(8);
+        root.left = new Node(6);
+        root.left.left = new Node(5);
+        root.left.left.left = new Node(3);
 
-        for(int i=0; i<values.length; i++){
-            root = insert(root, values[i]);
-        }   
-        
-        Node root1 = mirrorBST(root);
-        preOrder(root1);
+        root.right = new Node(10);
+        root.right.right = new Node(11);
+        root.right.right.right = new Node(12);
 
+        root = balanceBST(root);
+        preOrder(root);
     }
 }
