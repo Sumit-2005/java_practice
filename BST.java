@@ -246,18 +246,13 @@ public class BST {
 
     public static void main(String args[]) {
 
-        Node root = new Node(50);
-        root.left = new Node(30);
-        root.left.left = new Node(5);
-        root.left.right = new Node(20);
+        Node root1 = new Node(2);
+        root1.left = new Node(1);
+        root1.right = new Node(4);
 
-        root.right = new Node(60);
-        root.right.left = new Node(45);
-        root.right.right = new Node(70);
-        root.right.right.left = new Node(65);
-        root.right.right.right = new Node(80);
-
-        Info info = largestBST(root);
-        System.out.println(maxBST);
+        Node root2 = new Node(9);
+        root2.left = new Node(3);
+        root2.right = new Node(12);
+        
     }
 }
