@@ -39,9 +39,6 @@ public class BST2 {
         inorderArrayList(root2, ar2);
         
         ArrayList<Integer> merge = mergeArrayList(ar1, ar2);
-        for(int i=0; i<merge.size(); i++){
-            System.out.print(merge.get(i)+ " ");
-        }
         int[] nodeArray = new int[merge.size()];
         for (int i = 0; i < merge.size(); i++) {
             nodeArray[i] = merge.get(i);
