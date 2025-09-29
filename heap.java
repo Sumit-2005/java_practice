@@ -113,6 +113,7 @@ public class heap {
         }
     }
 
+    //Nearby Cars Question
     static class Point implements Comparable<Point>{
         int x;
         int y;
@@ -132,18 +133,67 @@ public class heap {
         }
     }
 
+
+    //Weakest Soldier Question
+    static class Row implements Comparable<Row>{
+        int soldier;
+        int idx;
+
+        public Row(int soldier, int idx){
+            this.soldier = soldier;
+            this.idx = idx;
+        }
+
+        @Override
+        public int compareTo(Row r2){
+            if(this.soldier == r2.soldier){
+                return this.idx - r2.idx;
+            }else{
+                return this.soldier - r2.soldier;
+            }
+        }
+    }
+
+    static class Pair implements Comparable<Pair>{
+        int val;
+        int idx;
+
+        public Pair(int val, int idx){
+            this.val = val;
+            this.idx = idx;
+        }
+
+        @Override
+        public int compareTo(Pair p2){
+            return p2.val - this.val;
+        }
+    }
+
     public static void main(String args[]){
-        int pts[][] = {{3,3}, {5,-1}, {-2, 4}};
-        int k = 2;
+        int arr[] = {1,3,-1,-3,5,3,6,7};
+        int k = 3;
+        int res[] = new int[arr.length-k+1];
 
-        PriorityQueue<Point> pq = new PriorityQueue<>();
-        for(int i=0; i<pts.length; i++){
-            int distSq = pts[i][0]*pts[i][0] + pts[i][1]*pts[i][1];
-            pq.add(new Point(pts[i][0], pts[i][1], distSq, i));
+        PriorityQueue<Pair> pq = new PriorityQueue<>();
+
+        for(int i =0; i<k; i++){
+            pq.add(new Pair(arr[i], i));
         }
 
-        for(int i=0; i<k; i++){
-            System.out.println("C" + pq.remove().idx);
+        res[0] = pq.peek().val;
+
+        for(int i=k; i<arr.length; i++){
+            while(pq.size() > 0 && pq.peek().idx <= (i-k)){
+                pq.remove();
+            }
+
+            pq.add(new Pair(arr[i], i));
+            res[i-k+1] = pq.peek().val;
         }
+
+        for(int i=0; i<res.length; i++){
+            System.out.print(res[i]+ " ");
+        }
+        System.out.println();
     }
 }
